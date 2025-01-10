@@ -21,3 +21,13 @@ void Timer::start(int timerDuration)
     pausedDuration = 0;
 }
 
+void Timer::pause()
+{
+    if (timerState != "running")
+    {
+        throw std::runtime_error("Timer must be running to pause");
+    }
+
+    timerState = "paused";
+    pauseTime = std::chrono::steady_clock::now();
+}
