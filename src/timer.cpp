@@ -1,8 +1,23 @@
-#include <iostream>
-using namespace std;
+#include "../include/timer.h"
+#include <stdexcept>
 
-int main() 
+Timer::Timer()
 {
-    cout << "Timer" << '\n';
-    return 0;
+    timerState = "stopped";
+    timerDuration = 0;
+    pausedDuration = 0;
 }
+
+void Timer::start(int timerDuration)
+{
+    if (timerDuration <= 0)
+    {
+        throw std::invalid_argument("Timer duration must be greater than 0");
+    }
+
+    this->timerDuration = timerDuration;
+    timerState = "running";
+    startTime = std::chrono::steady_clock::now();
+    pausedDuration = 0;
+}
+
