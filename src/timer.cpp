@@ -43,3 +43,56 @@ void Timer::resume()
     pausedDuration += pauseDuration;
     timerState = "running";
 }
+
+void Timer::stop()
+{
+    timerState = "stopped";
+}
+
+void Timer::reset()
+{
+    timerState = "stopped";
+    timerDuration = 0;
+    pausedDuration = 0;
+}
+
+bool Timer::isRunning()
+{
+    return timerState == "running";
+}
+
+bool Timer::isPaused()
+{
+    return timerState == "paused";
+}
+
+bool Timer::isStopped()
+{
+    return timerState == "stopped";
+}
+
+int Timer::getRemainingTime()
+{
+    if (timerState == "stopped") 
+    {
+        return 0;
+    }
+
+    auto now = std::chrono::steady_clock::now();
+    auto elapsedTime = std::chrono::duration_cast<std::chrono::seconds>(now - startTime).count();
+
+    elapsedTime -= pausedDuration;
+    
+    int remainingTime = timerDuration - static_cast<int>(elapsedTime);
+    return remainingTime > 0 ? remainingTime : 0;
+}
+
+int Timer::getDuration()
+{
+    return timerDuration;
+}
+
+std::string Timer::getState()
+{
+    return timerState;
+}
