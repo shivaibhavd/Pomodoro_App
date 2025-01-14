@@ -1,7 +1,11 @@
 #include "../include/app.h"
 #include <iostream>
 
-App::App() : running(true) {}
+App::App()
+{
+    running = true;
+    notifier = std::unique_ptr<Notifier>(new ConsoleNotifier());
+}
 
 void App::displayTime(int seconds) const
 {
@@ -39,38 +43,38 @@ void App::run()
                     std::cout << "Enter break duration (seconds): ";
                     std::cin >> breakDuration;
                     timer.start(workDuration, breakDuration);
-                    std::cout << "Work session started.\n";
+                    notifier->notify("Work session started");
                 }
                 else
                 {
-                    std::cout << "Timer is already running.\n";
+                    notifier->notify("Timer is already running");
                 }
                 break;
             case '2':
                 if (timer.isWorkTime())
                 {
                     timer.pause();
-                    std::cout << "Work session paused.\n";
+                    notifier->notify("Work session paused");
                 }
                 else
                 {
-                    std::cout << "Cannot pause. Timer is not in work session.\n";
+                    notifier->notify("Cannot pause. Timer is not in work session");
                 }
                 break;
             case '3':
                 if (timer.isPaused())
                 {
                     timer.resume();
-                    std::cout << "Work session resumed.\n";
+                    notifier->notify("Work session resumed");
                 }
                 else
                 {
-                    std::cout << "Cannot resume. Timer is not paused.\n";
+                    notifier->notify("Cannot resume. Timer is not paused");
                 }
                 break;
             case '4':
                 timer.reset();
-                std::cout << "Timer reset.\n";
+                notifier->notify("Timer reset");
                 break;
             case '5':
                 if (timer.isRunning() || timer.isPaused())
@@ -81,15 +85,15 @@ void App::run()
                 }
                 else
                 {
-                    std::cout << "No active session.\n";
+                    notifier->notify("No active session");
                 }
                 break;
             case '6':
                 running = false;
-                std::cout << "Exiting...\n";
+                notifier->notify("Exiting...");
                 break;
             default:
-                std::cout << "Invalid option! Please try again.\n";
+                notifier->notify("Invalid option! Please try again");
             }
 
             Timer::State previousState = timer.getState();
@@ -98,16 +102,16 @@ void App::run()
 
             if (previousState == Timer::State::WORK && currentState == Timer::State::BREAK)
             {
-                std::cout << "\nWork session complete! Time for a break.\n";
+                notifier->notify("Work session complete! Time for a break");
             }
             else if (previousState == Timer::State::BREAK && currentState == Timer::State::STOPPED)
             {
-                std::cout << "\nBreak session complete! Timer will reset.\n";
+                notifier->notify("Break session complete! Timer will reset");
             }
         }
         catch (const std::exception &e)
         {
-            std::cout << "Error: " << e.what() << "\n";
+            notifier->notify(std::string("Error: ") + e.what());
         }
     }
 }
