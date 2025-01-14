@@ -1,34 +1,48 @@
 #pragma once
-#include <string>
 #include <chrono>
 
 class Timer
 {
+public:
+    enum class State
+    {
+        STOPPED,
+        WORK,
+        BREAK,
+        PAUSED
+    };
+
 private:
-    std::string timerState; // "running", "paused", "stopped"
-    int timerDuration;
+    State timerState;
+    int workDuration;
+    int breakDuration;
     std::chrono::steady_clock::time_point startTime;
     std::chrono::steady_clock::time_point pauseTime;
-    int pausedDuration;
 
 public:
     // Constructor
     Timer();
 
     // Timer methods
-    void start(int timeDuration);
+    void start(int workDuration, int breakDuration);
     void pause();
     void resume();
     void stop();
     void reset();
 
     // Check timer state
-    bool isRunning();
-    bool isPaused();
-    bool isStopped();
+    bool isWorkTime() const;
+    bool isBreakTime() const;
+    bool isPaused() const;
+    bool isStopped() const;
+    bool isRunning() const;
+
+    // Timer transition
+    void transition();
 
     // Getters
-    int getRemainingTime();
-    int getDuration();
-    std::string getState();
+    int getRemainingTime() const;
+    int getWorkDuration() const;
+    int getBreakDuration() const;
+    State getState() const;
 };
