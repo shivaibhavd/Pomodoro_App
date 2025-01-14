@@ -1,8 +1,7 @@
+#include "../include/notifier.h"
 #include <iostream>
-using namespace std;
 
-int main() 
+void ConsoleNotifier::notify(const std::string &message)
 {
-    cout << "Notifier" << '\n';
-    return 0;
+    std::cout << "\n=== " << message << " ===\n" << std::endl;
 }
