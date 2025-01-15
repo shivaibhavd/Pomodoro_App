@@ -12,6 +12,10 @@ public:
         PAUSED
     };
 
+    // Default durations in seconds
+    static const int defaultWorkDuration = 25 * 60;
+    static const int defaultBreakDuration = 5 * 60;
+
 private:
     State timerState;
     int workDuration;

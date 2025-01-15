@@ -37,13 +37,29 @@ void App::run()
             case '1':
                 if (!timer.isRunning())
                 {
-                    int workDuration, breakDuration;
-                    std::cout << "Enter work duration (seconds): ";
-                    std::cin >> workDuration;
-                    std::cout << "Enter break duration (seconds): ";
-                    std::cin >> breakDuration;
-                    timer.start(workDuration, breakDuration);
-                    notifier->notify("Work session started");
+                    char useDefault;
+                    std::cout << "Use default durations (25min/5min)? [y/n]: ";
+                    std::cin >> useDefault;
+                    
+                    if (useDefault == 'y' || useDefault == 'Y')
+                    {
+                        timer.start(Timer::defaultWorkDuration, Timer::defaultBreakDuration);
+                        notifier->notify("Work session started with default duration (25min)");
+                    }
+                    else if (useDefault == 'n' || useDefault == 'N')
+                    {
+                        int workDuration, breakDuration;
+                        std::cout << "Enter work duration (seconds): ";
+                        std::cin >> workDuration;
+                        std::cout << "Enter break duration (seconds): ";
+                        std::cin >> breakDuration;
+                        timer.start(workDuration, breakDuration);
+                        notifier->notify("Work session started");
+                    }
+                    else
+                    {
+                        notifier->notify("Invalid option! Please try again");
+                    }
                 }
                 else
                 {
