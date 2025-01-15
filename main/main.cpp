@@ -3,16 +3,12 @@
 
 int main()
 {
-    try
+    App app;
+    if (!app.run())
     {
-        App app;
-        app.run();
-    }
-    catch (const std::exception &e)
-    {
-        std::cout << "An error occurred: " << e.what() << std::endl;
+        std::cout << "An error occurred during execution." << std::endl;
         return 1; // indicates failure
     }
-
+    
     return 0;
 }
