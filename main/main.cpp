@@ -3,6 +3,6 @@
 int main()
 {
     App app;
-    app.run();
+    app.run(); // feedback_15Jan: no error handling here
     return 0;
 }

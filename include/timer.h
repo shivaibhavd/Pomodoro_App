@@ -3,7 +3,7 @@
 
 class Timer
 {
-public:
+public: // feedback_15Jan: Ideally, just have all public members in one place, not two public sections
     enum class State
     {
         STOPPED,
@@ -13,8 +13,8 @@ public:
     };
 
     // Default durations in seconds
-    static const int defaultWorkDuration = 25 * 60;
-    static const int defaultBreakDuration = 5 * 60;
+    static const int defaultWorkDuration = 25 * 60; // feedback_15Jan: Always have units in var names, eg. defaultWorkDurInSecs
+    static const int defaultBreakDuration = 5 * 60; // feedback_15Jan: Always have units in var names, eg. defaultWorkDurInSecs
 
 private:
     State timerState;
@@ -29,11 +29,11 @@ public:
     Timer();
 
     // Timer methods
-    void start(int workDuration, int breakDuration);
-    void pause();
-    void resume();
-    void stop();
-    void reset();
+    void start(int workDuration, int breakDuration); // feedback_15Jan: consider alternate return val that tells if it failed or succeeded
+    void pause(); // feedback_15Jan: consider alternate return val that tells if it failed or succeeded
+    void resume(); // feedback_15Jan: consider alternate return val that tells if it failed or succeeded
+    void stop(); // feedback_15Jan: consider alternate return val that tells if it failed or succeeded
+    void reset(); // feedback_15Jan: consider alternate return val that tells if it failed or succeeded
 
     // Check timer state
     bool isWorkTime() const;

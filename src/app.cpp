@@ -4,10 +4,10 @@
 App::App()
 {
     running = true;
-    notifier = std::unique_ptr<Notifier>(new ConsoleNotifier());
+    notifier = std::unique_ptr<Notifier>(new ConsoleNotifier()); // feedback_15Jan: broken Dependency Inversion principle
 }
 
-void App::displayTime(int seconds) const
+void App::displayTime(int seconds) const // feedback_15Jan: seconds is a very generic term, so a bad var name
 {
     int minutes = seconds / 60;
     int remainingSeconds = seconds % 60;

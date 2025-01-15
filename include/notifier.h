@@ -2,7 +2,7 @@
 #include <string>
 
 // Abstract base class for notifications
-class Notifier
+class Notifier              // feedback_15Jan: good idea to mark pure virtual classes (which are technically, interfaces) to use I prefix: INotifier
 {
 public:
     virtual ~Notifier() = default;
@@ -13,5 +13,5 @@ public:
 class ConsoleNotifier : public Notifier
 {
 public:
-    void notify(const std::string &message) override;
+    void notify(const std::string &message) override; // feedback_15Jan: good practice to use override keyword, const, write rationale as comment
 };

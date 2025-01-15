@@ -2,37 +2,50 @@
 #include <stdexcept>
 #include <chrono>
 
+// feedback_15Jan: why not initialize with default values as defined in timer header ? have functional default values
 Timer::Timer()
 {
     timerState = State::STOPPED;
-    workDuration = 0;
-    breakDuration = 0;
-    cycleCount = 0;
+    workDuration = 0; // feedback_15Jan: why not initialize with default values as defined in timer header ?
+    breakDuration = 0; // feedback_15Jan: why not initialize with default values as defined in timer header ?
+    cycleCount = 0; // feedback_15Jan: why not initialize with default values as defined in timer header ?
 }
 
 void Timer::start(int workDuration, int breakDuration)
 {
     if (workDuration <= 0 || breakDuration <= 0)
     {
-        throw std::invalid_argument("Durations must be greater than 0");
+        throw std::invalid_argument("Durations must be greater than 0"); // feedback_15Jan: 1. Use custom exception for the app level functionality failure, here for eg. APP_INVALID_TIMER_PARAMS & you can then handle those separetly the App level by adjusting to default values and notifying the user
     }
-    this->workDuration = workDuration;
+    this->workDuration = workDuration;  // feedback_15Jan: why is this used for some vars but not for others ?, you can probably skip it
     this->breakDuration = breakDuration;
     timerState = State::WORK;
     startTime = std::chrono::steady_clock::now();
 }
 
-void Timer::pause()
+void Timer::pause() 
 {
-    if (timerState != State::WORK)
+    if (timerState != State::WORK) // feedback_15Jan: bad application behaviour to crash, see alt logic below
     {
-        throw std::runtime_error("Timer must be in work state to pause");
+        throw std::runtime_error("Timer must be in work state to pause"); 
     }
+    // feedback_15Jan: 
+    /*
+        if (state => paused or stopped)
+        { 
+            return True; // do nothing
+        }
+        if (state => break)
+        {
+            return an error to App level, and tell the user that pausing during the break is not allowed
+        }
+        // implement the state -> WORK logic here
+    */
     timerState = State::PAUSED;
     pauseTime = std::chrono::steady_clock::now();
 }
 
-void Timer::resume()
+void Timer::resume() // feedback_15Jan: bad application behaviour to crash
 {
     if (timerState != State::PAUSED)
     {
@@ -43,7 +56,7 @@ void Timer::resume()
     timerState = State::WORK;
 }
 
-void Timer::stop()
+void Timer::stop() // feedback_15Jan: bad application behaviour to crash
 {
     timerState = State::STOPPED;
 }
@@ -96,7 +109,7 @@ int Timer::getRemainingTime() const
         remainingTime = breakDuration - static_cast<int>(elapsedTime);
     }
 
-    return remainingTime > 0 ? remainingTime : 0;
+    return remainingTime > 0 ? remainingTime : 0; // feedback_15Jan: condition redundant, already init to 0
 }
 
 int Timer::getWorkDuration() const
