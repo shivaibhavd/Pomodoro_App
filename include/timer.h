@@ -20,6 +20,7 @@ private:
     State timerState;
     int workDuration;
     int breakDuration;
+    int cycleCount;
     std::chrono::steady_clock::time_point startTime;
     std::chrono::steady_clock::time_point pauseTime;
 
@@ -44,9 +45,13 @@ public:
     // Timer transition
     void transition();
 
+    // Increment cycle count
+    void incrementCycleCount();
+
     // Getters
     int getRemainingTime() const;
     int getWorkDuration() const;
     int getBreakDuration() const;
+    int getCycleCount() const;
     State getState() const;
 };

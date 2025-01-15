@@ -7,6 +7,7 @@ Timer::Timer()
     timerState = State::STOPPED;
     workDuration = 0;
     breakDuration = 0;
+    cycleCount = 0;
 }
 
 void Timer::start(int workDuration, int breakDuration)
@@ -52,6 +53,7 @@ void Timer::reset()
     timerState = State::STOPPED;
     workDuration = 0;
     breakDuration = 0;
+    cycleCount = 0;
 }
 
 bool Timer::isWorkTime() const
@@ -117,6 +119,16 @@ bool Timer::isRunning() const
     return timerState == State::WORK || timerState == State::BREAK;
 }
 
+void Timer::incrementCycleCount()
+{
+    cycleCount++;
+}
+
+int Timer::getCycleCount() const
+{
+    return cycleCount;
+}
+
 void Timer::transition()
 {
     if (isWorkTime() && getRemainingTime() <= 0)
@@ -126,6 +138,7 @@ void Timer::transition()
     }
     else if (isBreakTime() && getRemainingTime() <= 0)
     {
+        incrementCycleCount();
         timerState = State::STOPPED;
     }
 }
