@@ -122,7 +122,7 @@ void App::run()
             }
             else if (previousState == Timer::State::BREAK && currentState == Timer::State::STOPPED)
             {
-                notifier->notify("Break session complete! Timer will reset");
+                notifier->notify("Break session complete! Cycle " + std::to_string(timer.getCycleCount()) + " finished!");
             }
         }
         catch (const std::exception &e)
