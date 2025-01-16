@@ -1,4 +1,5 @@
 #include "../include/app.h"
+#include "../include/exceptions.h"
 #include <iostream>
 
 App::App()
@@ -134,8 +135,9 @@ bool App::run() noexcept
         }
         return true; // Indicate success
     }
-    catch (...)
+    catch (const std::exception& e)
     {
+        notifier->notify(std::string("Error: ") + e.what());
         return false; // Indicate failure
     }
 }

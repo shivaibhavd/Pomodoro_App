@@ -1,4 +1,5 @@
 #include "../include/timer.h"
+#include "../include/exceptions.h"
 #include <stdexcept>
 #include <chrono>
 
@@ -14,8 +15,7 @@ bool Timer::start(int workDurationInSeconds, int breakDurationInSeconds)
 {
     if (workDurationInSeconds <= 0 || breakDurationInSeconds <= 0)
     {
-        return false;
-        throw std::invalid_argument("Durations must be greater than 0"); // feedback_15Jan: 1. Use custom exception for the app level functionality failure, here for eg. APP_INVALID_TIMER_PARAMS & you can then handle those separetly the App level by adjusting to default values and notifying the user
+        throwAppInvalidTimerParams("Duration values must be greater than 0");
     }
     
     workDuration = workDurationInSeconds;

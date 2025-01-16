@@ -1,4 +1,5 @@
 #include "../include/app.h"
+#include "../include/exceptions.h"
 #include <iostream>
 
 int main()
