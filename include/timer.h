@@ -3,7 +3,7 @@
 
 class Timer
 {
-public: // feedback_15Jan: Ideally, just have all public members in one place, not two public sections
+public:
     enum class State
     {
         STOPPED,
@@ -12,28 +12,15 @@ public: // feedback_15Jan: Ideally, just have all public members in one place, n
         PAUSED
     };
 
-    // Default durations in seconds
-    static const int defaultWorkDuration = 25 * 60; // feedback_15Jan: Always have units in var names, eg. defaultWorkDurInSecs
-    static const int defaultBreakDuration = 5 * 60; // feedback_15Jan: Always have units in var names, eg. defaultWorkDurInSecs
-
-private:
-    State timerState;
-    int workDuration;
-    int breakDuration;
-    int cycleCount;
-    std::chrono::steady_clock::time_point startTime;
-    std::chrono::steady_clock::time_point pauseTime;
-
-public:
     // Constructor
     Timer();
 
     // Timer methods
-    void start(int workDuration, int breakDuration); // feedback_15Jan: consider alternate return val that tells if it failed or succeeded
-    void pause(); // feedback_15Jan: consider alternate return val that tells if it failed or succeeded
-    void resume(); // feedback_15Jan: consider alternate return val that tells if it failed or succeeded
-    void stop(); // feedback_15Jan: consider alternate return val that tells if it failed or succeeded
-    void reset(); // feedback_15Jan: consider alternate return val that tells if it failed or succeeded
+    bool start(int workDurationInSeconds, int breakDurationInSeconds);
+    bool pause(); 
+    bool resume();
+    bool stop();  
+    bool reset(); 
 
     // Check timer state
     bool isWorkTime() const;
@@ -54,4 +41,18 @@ public:
     int getBreakDuration() const;
     int getCycleCount() const;
     State getState() const;
+
+    // Default durations in seconds
+    static const int defaultWorkDurationInSeconds = 25 * 60; 
+    static const int defaultBreakDurationInSeconds = 5 * 60;
+
+private:
+    State timerState;
+    int workDuration = 0;
+    int breakDuration = 0;
+    int cycleCount = 0;
+    std::chrono::steady_clock::time_point startTime;
+    std::chrono::steady_clock::time_point pauseTime;
+
+public:
 };
