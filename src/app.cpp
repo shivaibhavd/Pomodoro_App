@@ -2,10 +2,10 @@
 #include "../include/exceptions.h"
 #include <iostream>
 
-App::App()
+App::App(std::unique_ptr<INotifier> notifier)
 {
     running = true;
-    notifier = std::unique_ptr<INotifier>(new ConsoleNotifier()); // feedback_15Jan: broken Dependency Inversion principle
+    this->notifier = std::move(notifier); // Move notifier into the unique_ptr
 }
 
 void App::displayTime(int timeInSeconds) const
