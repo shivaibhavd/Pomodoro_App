@@ -6,7 +6,7 @@
 class App
 {
 private:
-    Timer timer;
+    Timer &timer; // Reference to the Singleton Timer instance
     bool running;
     std::unique_ptr<INotifier> notifier; // unique_ptr to ensure single ownership and automatic cleanup
     
