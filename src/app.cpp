@@ -3,9 +3,8 @@
 #include <iostream>
 
 App::App(std::unique_ptr<INotifier> notifier)
+    : notifier(std::move(notifier)), running(true), timer(Timer::getInstance())
 {
-    running = true;
-    this->notifier = std::move(notifier); // Move notifier into the unique_ptr
 }
 
 void App::displayTime(int timeInSeconds) const

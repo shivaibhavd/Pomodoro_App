@@ -3,6 +3,14 @@
 #include <stdexcept>
 #include <chrono>
 
+// Singleton instance access method
+Timer& Timer::getInstance()
+{
+    static Timer instance;
+    return instance;
+}
+
+// Private constructor for Singleton pattern
 Timer::Timer()
 {
     timerState = State::STOPPED;
