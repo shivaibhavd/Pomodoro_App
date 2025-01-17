@@ -60,6 +60,6 @@ A CLI Pomodoro timer application in C++
 * Run the app or tests
     ```
     cd build
-    .\pomodoro.exe
-    .\tests.exe
+    .\pomodoro
+    .\tests
     ```
