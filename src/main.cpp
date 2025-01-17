@@ -9,7 +9,7 @@ int main()
     App app(std::move(notifier));
     if (!app.run())
     {
-        std::cout << "An error occurred during execution." << std::endl;
+        std::cout << "An error occurred during execution." << std::endl; //Feedback_17Jan why not notify the user?
         return 1; // indicates failure
     }
     
