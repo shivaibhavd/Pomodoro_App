@@ -1,4 +1,4 @@
-#include "../include/notifier.h"
+#include "notifier.h"
 #include <iostream>
 
 void ConsoleNotifier::notify(const std::string &message)

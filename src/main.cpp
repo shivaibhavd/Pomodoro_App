@@ -1,6 +1,6 @@
-#include "../include/app.h"
-#include "../include/notifier.h"
-#include "../include/exceptions.h"
+#include "app.h"
+#include "notifier.h"
+#include "exceptions.h"
 #include <iostream>
 
 int main()

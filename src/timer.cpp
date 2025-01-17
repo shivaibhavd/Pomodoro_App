@@ -1,5 +1,5 @@
-#include "../include/timer.h"
-#include "../include/exceptions.h"
+#include "timer.h"
+#include "exceptions.h"
 #include <stdexcept>
 #include <chrono>
 

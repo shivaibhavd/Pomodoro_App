@@ -1,6 +1,6 @@
 #define BOOST_TEST_MODULE TimerTest
 #include <boost/test/included/unit_test.hpp>
-#include "../include/timer.h"
+#include "timer.h"
 
 // Basic test case to verify timer initial state
 BOOST_AUTO_TEST_CASE(test_timer_initial_state)

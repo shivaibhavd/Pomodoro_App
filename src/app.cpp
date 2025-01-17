@@ -1,5 +1,5 @@
-#include "../include/app.h"
-#include "../include/exceptions.h"
+#include "app.h"
+#include "exceptions.h"
 #include <iostream>
 
 App::App(std::unique_ptr<INotifier> notifier)
