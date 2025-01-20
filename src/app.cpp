@@ -1,6 +1,8 @@
 #include "app.h"
 #include "exceptions.h"
 #include <iostream>
+#include <thread>
+#include <chrono>
 
 App::App(std::unique_ptr<INotifier> notifier)
     : notifier(std::move(notifier)), running(true), timer(Timer::getInstance())
@@ -130,6 +132,17 @@ bool App::run() noexcept
             catch (const std::exception &e)
             {
                 notifier->notify(std::string("Error: ") + e.what());
+                notifier->notify(std::string("Retrying in 5 seconds... \n"));
+
+                std::this_thread::sleep_for(std::chrono::seconds(5)); // Wait for 5 seconds before retrying
+                
+                std::cout << "Would you like to retry now? (y/n): ";
+                char retryChoice;
+                std::cin >> retryChoice;
+                if (retryChoice == 'n' || retryChoice == 'N')
+                {
+                    return false; // Indicate failure
+                }
             }
         }
         return true; // Indicate success
