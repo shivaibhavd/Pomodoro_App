@@ -1,6 +1,7 @@
 #define BOOST_TEST_MODULE TimerTest
 #include <boost/test/included/unit_test.hpp>
 #include "timer.h"
+#include "exceptions.h"
 
 // Basic test case to verify timer initial state
 BOOST_AUTO_TEST_CASE(test_timer_initial_state)
@@ -43,4 +44,12 @@ BOOST_AUTO_TEST_CASE(test_timer_reset)
     timer.start(1500, 300);     // Start the timer
     BOOST_CHECK(timer.reset()); // Reset the timer and check if the reset operation was successful
     BOOST_CHECK(timer.isStopped());
+}
+
+// Test to verify that the Timer transitions correctly from work to break
+BOOST_AUTO_TEST_CASE(test_timer_invalid_durations)
+{
+    Timer &timer = Timer::getInstance();
+    BOOST_CHECK_THROW(timer.start(0, 300), AppException); // Zero work duration
+    BOOST_CHECK_THROW(timer.start(1500, -5), AppException); // Negative break duration
 }
