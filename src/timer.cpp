@@ -62,7 +62,7 @@ bool Timer::resume()
         throw std::runtime_error("Cannot resume while stopped");
     }
 
-    auto pauseDuration = std::chrono::steady_clock::now() - pauseTime;
+    std::chrono::steady_clock::duration pauseDuration = std::chrono::steady_clock::now() - pauseTime;
     startTime += pauseDuration; // Adjust start time to account for pause
     timerState = State::WORK;
     return true;
@@ -120,8 +120,8 @@ int Timer::getRemainingTime() const
         return 0;
     }
 
-    auto now = (timerState == State::PAUSED) ? pauseTime : std::chrono::steady_clock::now();
-    auto elapsedTime = std::chrono::duration_cast<std::chrono::seconds>(now - startTime).count();
+    std::chrono::steady_clock::time_point now = (timerState == State::PAUSED) ? pauseTime : std::chrono::steady_clock::now();
+    std::chrono::seconds::rep elapsedTime = std::chrono::duration_cast<std::chrono::seconds>(now - startTime).count();
     int remainingTime = 0;
 
     if (timerState == State::WORK || timerState == State::PAUSED)
