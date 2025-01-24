@@ -13,6 +13,13 @@ private:
 
     void displayTime(int seconds) const; // const as it does not modify any member variables of the class
 
+    void handleStart();
+    void handlePause();
+    void handleResume();
+    void handleReset();
+    void handleShowTime();
+    void handleExit();
+
 public:
     App(std::unique_ptr<INotifier> notifier); // Constructor with dependency injection
     bool run() noexcept; // noexcept as it should not throw exceptions
