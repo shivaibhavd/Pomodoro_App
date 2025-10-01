@@ -12,8 +12,9 @@ A CLI Pomodoro timer application in C++
 
 <h2 id="windows">Windows</h2>  
 
-* Install vcpkg
+* Go to vcpkg directory and Install vcpkg
     ```
+    cd vcpkg
     .\bootstrap-vcpkg.bat
     ```
 
